@@ -6,6 +6,7 @@ import (
 	"log"
 	"io/ioutil"
 	"sort"
+	"fmt"
 )
 
 func main() {
@@ -25,10 +26,10 @@ func main() {
 	}
 
 	if toolboxIndex != len(profiles)-1 {
-		log.Println("Toolbox needs ", profiles[len(profiles)-1].Votes-profiles[toolboxIndex].Votes, " more votes to be Nr. 1 in the voting!")
-		log.Println("Toolbox needs ", profiles[toolboxIndex+1].Votes-profiles[toolboxIndex].Votes, "more votes to climb one rank!")
+		fmt.Println("Toolbox needs ", profiles[len(profiles)-1].Votes-profiles[toolboxIndex].Votes, " more votes to be Nr. 1 in the voting!")
+		fmt.Println("Toolbox needs ", profiles[toolboxIndex+1].Votes-profiles[toolboxIndex].Votes, "more votes to climb one rank!")
 	} else {
-		log.Println("Toolbox is Nr. 1")
+		fmt.Println("Toolbox is Nr. 1")
 	}
 }
 
