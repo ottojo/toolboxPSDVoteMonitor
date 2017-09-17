@@ -30,6 +30,7 @@ func main() {
 		fmt.Println("Toolbox needs", profiles[toolboxIndex+1].Votes-profiles[toolboxIndex].Votes, "more votes to climb one rank!")
 	} else {
 		fmt.Println("Toolbox is Nr. 1")
+		fmt.Println("Toolbox leads with", profiles[toolboxIndex].Votes-profiles[toolboxIndex-1].Votes, "votes!")
 	}
 }
 
