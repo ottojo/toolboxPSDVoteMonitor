@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/ottojo/toolboxPSDVoteMonitor/psdSiteParser"
-	"net/http"
-	"log"
-	"io/ioutil"
-	"sort"
 	"fmt"
+	"github.com/ottojo/toolboxPSDVoteMonitor/psdSiteParser"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"sort"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 
 	var toolboxIndex int
 	for i, profile := range profiles {
-		if profile.Id == "toolbox-bodensee-e-v" {
+		if profile.Id == "259" {
 			toolboxIndex = i
 			break
 		}

@@ -3,28 +3,26 @@ package psdSiteParser
 import (
 	"regexp"
 	"strconv"
-	"net/url"
 )
 
 func Parse(site []byte) Profiles {
+	// https://stackoverflow.com/a/1732454/4162386
 	var profiles Profiles
-	var regexExp = regexp.MustCompile(`<a class="archive-titel" href="https://www\.psd-miteinander-leben\.de/profile/([^/]+)/" title="[^"]+">([^"]+)</a>.+<span class="profile-txt-votes">Stimmen</span><span class="profile-txt-stimmen">(\d+)</span>`)
+	var regexExp = regexp.MustCompile(`(?ms)<div id="profil-(?P<id>\d+)".*?row"><div class="cell rank">.*?<a href="(?P<url>[^"]+)" title="Link zum Profil von (?P<name>[^"]+)">.*?<span class="profile-txt-stimmen">(?P<votes>\d+)<\/span>`)
 
 	matches := regexExp.FindAllStringSubmatch(string(site), -1)
 
 	for _, match := range matches {
-		if len(match) < 4 {
-			continue
+		groups := make(map[string]string)
+		for i, m := range match {
+			groups[regexExp.SubexpNames()[i]] = m
 		}
-		votes, err := strconv.Atoi(match[3])
+
+		votes, err := strconv.Atoi(groups["votes"])
 		if err != nil {
 			continue
 		}
-		id, err := url.QueryUnescape(match[1])
-		if err != nil{
-			continue
-		}
-		profiles = append(profiles, Profile{Name: match[2], Id: id, Votes: votes})
+		profiles = append(profiles, Profile{Name: groups["name"], Id: groups["id"], Votes: votes})
 	}
 
 	return profiles
